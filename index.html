@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#ffffff">
+  <title>Harris Panakkat | Tamco Gulf</title>
+  <style>
+    *{box-sizing:border-box}
+    body{margin:0;background:#ededed;color:#111;font-family:Arial,Helvetica,sans-serif;font-size:16px}
+    .card{width:100%;max-width:520px;min-height:100vh;margin:0 auto;background:#ededed;box-shadow:0 0 10px #0002}
+    .header{height:120px;background:#fff;display:flex;align-items:center;justify-content:center;padding:15px 24px}
+    .header img{display:block;max-width:240px;max-height:94px;width:auto;height:auto;object-fit:contain}
+    .content{padding:32px 37px 64px}
+    .name{font-size:26px;font-weight:700;color:#246fb9;margin:0 0 8px}
+    .role,.company{margin:0 0 5px;font-size:16px;line-height:1.3}
+    .details{margin-top:25px}
+    .field{display:grid;grid-template-columns:80px minmax(0,1fr);column-gap:16px;line-height:1.45;margin-bottom:3px}
+    .field .label{color:#126cc0;text-align:right}
+    .field .value{overflow-wrap:anywhere}
+    a{color:inherit;text-decoration:none}
+    a:hover{text-decoration:underline}
+    .address{margin-top:23px}
+    .add{display:block;margin:44px auto 0;width:100%;max-width:345px;padding:15px 12px;border:0;border-radius:3px;background:#276fb8;color:#fff;font:16px Arial,Helvetica,sans-serif;cursor:pointer;text-align:center}
+    .add:hover{background:#175eaa}
+    .add:focus-visible{outline:3px solid #123c73;outline-offset:3px}
+    @media(max-width:430px){.content{padding:28px 18px 56px}.name{font-size:24px}.field{grid-template-columns:70px minmax(0,1fr);column-gap:10px}.header{height:115px}}
+  </style>
+</head>
+<body>
+  <main class="card">
+    <header class="header"><img src="tamco.png" alt="Tamco logo"></header>
+    <section class="content" aria-label="Contact details">
+      <h1 class="name">Harris Panakkat</h1>
+      <p class="role">General Manager</p>
+      <p class="company">Tamco Gulf</p>
+      <div class="details">
+        <div class="field"><span class="label">email:</span><span class="value"><a href="mailto:harris@binghalib.com">harris@binghalib.com</a></span></div>
+        <div class="field"><span class="label">office:</span><span class="value"><a href="tel:+97165135888">+971 6 513 5888</a></span></div>
+        <div class="field"><span class="label">mobile:</span><span class="value"><a href="tel:+971504516098">+971 50 451 6098</a></span></div>
+        <div class="field address"><span class="label">address:</span><span class="value">Sharjah, UAE</span></div>
+      </div>
+      <button type="button" class="add" id="addContact">+ Add Contact</button>
+    </section>
+  </main>
+  <script>
+    document.getElementById('addContact').addEventListener('click', function () {
+      const vcard = [
+        'BEGIN:VCARD',
+        'VERSION:3.0',
+        'N:Panakkat;Harris;;;',
+        'FN:Harris Panakkat',
+        'ORG:Tamco Gulf',
+        'TITLE:General Manager',
+        'EMAIL;TYPE=INTERNET,WORK:harris@binghalib.com',
+        'TEL;TYPE=WORK,VOICE:+97165135888',
+        'TEL;TYPE=CELL:+971504516098',
+        'ADR;TYPE=WORK:;;;;Sharjah;;United Arab Emirates',
+        'END:VCARD'
+      ].join('\r\n') + '\r\n';
+      const blob = new Blob([vcard], {type:'text/vcard;charset=utf-8'});
+      const url = URL.createObjectURL(blob);
+      const link = document.createElement('a');
+      link.href = url;
+      link.download = 'Harris-Panakkat.vcf';
+      document.body.appendChild(link);
+      link.click();
+      link.remove();
+      setTimeout(() => URL.revokeObjectURL(url), 10000);
+    });
+  </script>
+</body>
+</html>
